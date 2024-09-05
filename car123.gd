@@ -10,14 +10,12 @@ var continue_
 var start_rotation = rotation
 var start_position = position
 
-func _ready():
-	get_parent().get_node("Node/ProgressBar").visible = false
-
 func _on_button_pressed():
 	print("hello")
 	time = 0
 	continue_ = true
 	print(position)
+	get_parent().get_node("Node/ProgressBar").visible = true
 	
 func _physics_process(delta):
 	brake = Input.get_action_strength("forward") - Input.get_action_strength("backward") * -1500
@@ -39,7 +37,7 @@ func _physics_process(delta):
 		get_parent().get_node("Node/Button").visible = true
 		get_parent().get_node("Node/Label").text = "You fell off"
 		get_parent().get_node("Node/Label").visible = true
-		get_parent().get_node("Node/ProgressBar").visible = true
+		get_parent().get_node("Node/ProgressBar").visible = false
 	else:
 		continue_ = false
 	get_parent().get_node("Node/ProgressBar").value = speed
@@ -57,5 +55,5 @@ func _physics_process(delta):
 		get_parent().get_node("Node/Label").visible = false
 		get_parent().get_node("Node/Button").visible = false
 		get_parent().get_node("Node/TextureRect").visible = false
-		get_parent().get_node("Node/ProgressBar").visible = false
+		get_parent().get_node("Node/ProgressBar").visible = true
 	
