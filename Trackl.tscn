@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://pmcy6lyvs8pg"]
+
+[ext_resource type="PackedScene" uid="uid://ctcaibhgvvv0d" path="res://path_3d.tscn" id="1_p14sm"]
+[ext_resource type="PackedScene" uid="uid://b5uybwm543cnp" path="res://csg_polygon_3d.tscn" id="2_6t6vy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ammx7"]
+albedo_color = Color(0.0955423, 0.208589, 0.215304, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGPolygon3D" parent="." instance=ExtResource("2_6t6vy")]
+material_overlay = SubResource("StandardMaterial3D_ammx7")
+use_collision = true
+smooth_faces = true
+
+[node name="Path3D" parent="." instance=ExtResource("1_p14sm")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)

@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmh462cwvosmr"]
+
+[ext_resource type="PackedScene" uid="uid://ctcaibhgvvv0d" path="res://path_3d.tscn" id="1_nrpt4"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(16, 0, 0, 0, 100, 0, 0, 0, 16, 0, 0, 0)
+mode = 2
+path_node = NodePath("../Path3D2")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="Path3D2" parent="." instance=ExtResource("1_nrpt4")]

@@ -1,0 +1,17 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1722462937
+asphalt_02_nor_gl_4k.exr::::-1::0::0::0::::<><>::
+CAR Model.gd::GDScript::-1::1722299207::0::1::::<>VehicleBody3D<>::
+CAR Model.glb::PackedScene::2419005398288949336::1721593723::1722299954::1::::<><>::uid://ce23yexycwywo::::res://CAR Model_Lamborginhi Aventador_diffuse.jpg<>uid://bxdoq2gtioblg::::res://CAR Model_Lamborginhi Aventador_spec.png
+CAR Model_Lamborginhi Aventador_diffuse.jpg::CompressedTexture2D::5111078122867042282::1721593723::1721593727::1::::<><>::
+CAR Model_Lamborginhi Aventador_spec.png::CompressedTexture2D::4007837259505029968::1721593725::1721593727::1::::<><>::
+car.gd::GDScript::-1::1721693928::0::1::::<>VehicleBody3D<>::
+csg_mesh_3d.tscn::PackedScene::3227778546944609876::1721885972::0::1::::<><>::uid://b5uybwm543cnp::::res://csg_polygon_3d.tscn<>uid://ctcaibhgvvv0d::::res://path_3d.tscn
+csg_polygon_3d.tscn::PackedScene::4534833716989844033::1721885220::0::1::::<><>::
+game.tscn::PackedScene::8677199426677176054::1722300722::0::1::::<><>::uid://bap1wvkmrt0ga::::res://CAR Model.glb<>res://new_script.gd<>uid://pmcy6lyvs8pg::::res://Trackl.tscn
+icon.svg::CompressedTexture2D::4389076172559170676::1719691945::1719692739::1::::<><>::
+new_script.gd::GDScript::-1::1721942117::0::1::::<>VehicleBody3D<>::
+path_3d.tscn::PackedScene::6110572502006683297::1722300723::0::1::::<><>::
+sedan-sports.glb::PackedScene::5959973966870332089::1721584479::1722298787::1::::<><>::
+Trackl.gd::GDScript::-1::1721885081::0::1::::<>Node3D<>::
+Trackl.tscn::PackedScene::1077771126994415912::1722300723::0::1::::<><>::uid://ctcaibhgvvv0d::::res://path_3d.tscn<>uid://b5uybwm543cnp::::res://csg_polygon_3d.tscn

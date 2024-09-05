@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdmwugvdy74nr"]
+
+[ext_resource type="PackedScene" uid="uid://bf40es3nja5ci" path="res://barrier_inside_0.tscn" id="1_4frx4"]
+[ext_resource type="PackedScene" uid="uid://ctcaibhgvvv0d" path="res://path_3d.tscn" id="1_po6tg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x4qxb"]
+albedo_color = Color(0, 1, 1, 1)
+
+[node name="Barrier_Inside" type="Node3D"]
+
+[node name="Barrier_Inside0" parent="." instance=ExtResource("1_4frx4")]
+material = SubResource("StandardMaterial3D_x4qxb")
+
+[node name="Path3D2" parent="." instance=ExtResource("1_po6tg")]
