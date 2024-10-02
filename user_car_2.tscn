@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://bh8h3ywg3yrcc"]
+
+[ext_resource type="Script" path="res://car123.gd" id="1_k5nje"]
+[ext_resource type="PackedScene" uid="uid://bap1wvkmrt0ga" path="res://CAR Model.glb" id="2_4kgpk"]
+[ext_resource type="AudioStream" uid="uid://dchobaxg7a2hn" path="res://v12-motor-engine-218824.mp3" id="3_pkpdl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_svesv"]
+albedo_color = Color(0.0117647, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ecubo"]
+material = SubResource("StandardMaterial3D_svesv")
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.25
+radial_segments = 12
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a824i"]
+size = Vector3(1.53845, 0.845459, 4.89752)
+
+[node name="userCar2" type="VehicleBody3D"]
+transform = Transform3D(0.120692, -0.00616521, 0.992671, 0.0267438, 0.999638, 0.0029565, -0.992329, 0.0261906, 0.120811, 249.091, 84.9465, -42.7993)
+gravity_scale = 2.0
+script = ExtResource("1_k5nje")
+
+[node name="rearRight" type="VehicleWheel3D" parent="."]
+transform = Transform3D(0.783315, 0.0126085, 0.16204, -0.0127562, 0.799897, -0.000575442, -0.162028, -0.00202033, 0.783419, 0.365372, -0.103901, -2.16202)
+use_as_traction = true
+wheel_radius = 0.3
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="rearRight"]
+transform = Transform3D(-3.81842e-08, -0.9, 2.08616e-07, 0.9, -4.74975e-08, 7.45058e-08, -1.49012e-07, 4.32134e-07, 0.9, -0.0641327, 0.0280304, 0.00731277)
+mesh = SubResource("CylinderMesh_ecubo")
+
+[node name="rearLeft" type="VehicleWheel3D" parent="."]
+transform = Transform3D(0.783281, 0.0123048, 0.16223, -0.0125659, 0.7999, 0, -0.16221, -0.00254819, 0.78338, -1.66723, -0.0306091, -1.69559)
+use_as_traction = true
+wheel_radius = 0.3
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="rearLeft"]
+transform = Transform3D(-5.30854e-08, -0.9, -7.45058e-08, 0.9, -3.81842e-08, -9.68575e-08, 7.45058e-08, 1.78814e-07, 0.9, 0.129822, -0.00760269, 0.0011158)
+mesh = SubResource("CylinderMesh_ecubo")
+
+[node name="frontRight" type="VehicleWheel3D" parent="."]
+transform = Transform3D(0.783282, 0.0123048, 0.16223, -0.0125659, 0.799901, 0, -0.16221, -0.0025482, 0.783379, 0.796539, 0.095047, 0.591825)
+use_as_steering = true
+wheel_radius = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="frontRight"]
+transform = Transform3D(-3.93403e-08, -0.9, -6.70552e-09, 0.9, -3.93403e-08, 6.70552e-09, -6.70552e-09, -6.70552e-09, 0.9, 0.0688171, 0.0138702, -0.000801086)
+mesh = SubResource("CylinderMesh_ecubo")
+
+[node name="frontLeft" type="VehicleWheel3D" parent="."]
+transform = Transform3D(0.783282, 0.0123048, 0.16223, -0.0125659, 0.799902, 0, -0.16221, -0.0025482, 0.783379, -1.00961, 0.109074, 0.989759)
+use_as_steering = true
+wheel_radius = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="frontLeft"]
+transform = Transform3D(-3.93403e-08, -0.9, -6.70552e-09, 0.9, -3.93403e-08, 6.70552e-09, -6.70552e-09, -6.70552e-09, 0.9, 0.0688171, 0.0138702, -0.000801086)
+mesh = SubResource("CylinderMesh_ecubo")
+
+[node name="CAR Model" parent="." instance=ExtResource("2_4kgpk")]
+transform = Transform3D(0.00979261, 0.000112683, 0.00202299, -0.000310936, 0.00994984, 0.000950939, -0.0020021, -0.000994113, 0.00974699, -0.0826111, -0.277657, -0.199005)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.977444, 0.00383908, 0.211251, -0.0171088, 0.998024, 0.0610255, -0.210589, -0.063263, 0.97556, -0.297516, 0.25821, -0.496063)
+shape = SubResource("BoxShape3D_a824i")
+
+[node name="Sound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(-0.660952, 0.0267435, -0.749952, 0.0154638, 0.999638, 0.0220191, 0.750271, 0.00295692, -0.661124, 93.9426, -35.486, 179.142)
+stream = ExtResource("3_pkpdl")
+attenuation_model = 3
+volume_db = 54.096

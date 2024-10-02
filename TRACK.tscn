@@ -7,13 +7,13 @@ albedo_color = Color(0.335897, 0.544975, 1, 1)
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Path3D2" parent="." instance=ExtResource("1_lynqp")]
+[node name="trackPath" parent="." instance=ExtResource("1_lynqp")]
+transform = Transform3D(15, 0, 0, 0, 3, 0, 0, 0, 15, 0, 0, 0)
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
-transform = Transform3D(15, 0, 0, 0, 3, 0, 0, 0, 15, 0, 0, 0)
 use_collision = true
 mode = 2
-path_node = NodePath("../Path3D2")
+path_node = NodePath("../trackPath")
 path_interval_type = 0
 path_interval = 1.0
 path_simplify_angle = 0.0

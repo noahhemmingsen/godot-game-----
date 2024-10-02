@@ -10,21 +10,24 @@ var continue_
 var start_rotation = rotation
 var start_position = position
 var count = 0
+var finished
+var left_start
 
 func _on_button_pressed():
 	get_parent().get_node("Click").playing = true
-	print("hello")
 	time = 0
 	continue_ = true
-	print(position)
 	get_parent().get_node("Node/ProgressBar").visible = true
 	get_parent().get_node("Node/ColorRect").visible = false
 	get_parent().get_node("Node/Menu Button").visible = false
 	get_parent().get_node("Node/Help").visible = false
 	get_parent().get_node("Node/Fastest Times").visible = false
+	get_parent().get_node("Node/smallTitle").visible = false
+	get_parent().get_node("Node/bigTitle").visible = false
+	get_parent().get_node("Node/Fastest Times").visible = false
+	position = start_position
 	countdown()
 
-	
 func _physics_process(delta):
 	if get_parent().get_node("Node/Countdown").visible != true:
 		brake = Input.get_action_strength("forward") - Input.get_action_strength("backward") * 1500
@@ -41,27 +44,31 @@ func _physics_process(delta):
 		engine_force = Input.get_action_strength("backward") * 10
 		count = 0
 	speed = linear_velocity.length()
-	if position != start_position:
+	if position.x != start_position.x - 100 or position.x != start_position + 100:
 		time += delta
+		left_start = true
 	time = snapped(time, 0.001)
 	if linear_velocity.x != 0:
 		get_node("Sound").playing = true
-	print("Vector3"+str(position)+",")
 	speed = snapped(speed, 0)
 	get_parent().get_node("Speedometer").text = (str(speed * 3) + "km/h")
 	if position.y > 10:
 		get_parent().get_node("Node/deathsound").playing = true
-	if start_position.x - position.x < 10 or start_position.x - position.x > -10:
+	if start_position.x - position.x < 100 or start_position.x - position.x > -100 and start_position.y - position.y < 100 or start_position.y - position.y > 100 and left_start == true:
 		final_time = time
 		fastest_times.append(final_time)
 		get_parent().get_node("Time_UI").text = str(final_time)
-	if position.y < 5 or rotation_degrees.y > 180:
+		finished = true
+	if position.y < 5 or Input.is_action_pressed("menu"):
 		get_parent().get_node("Node/ColorRect").visible = true
 		get_parent().get_node("Node/Play").visible = true
-		get_parent().get_node("Node/Title").text = "You fell off"
-		get_parent().get_node("Node/Title").visible = true
+		get_parent().get_node("Node/smallTitle").text = "The game is stopped"
+		get_parent().get_node("Node/bigTitle").text = "The game is stopped"
+		get_parent().get_node("Node/smallTitle").visible = true
+		get_parent().get_node("Node/bigTitle").visible = true
 		get_parent().get_node("Node/ProgressBar").visible = false
 		get_parent().get_node("Node/Menu Button").visible = true
+		get_parent().get_node("Node/Countdown").visible = false
 	else:
 		continue_ = false
 	get_parent().get_node("Node/ProgressBar").value = speed
@@ -75,8 +82,8 @@ func _physics_process(delta):
 		linear_velocity = Vector3.ZERO
 		angular_velocity = Vector3.ZERO
 
-		print(position)
-		get_parent().get_node("Node/Title").visible = false
+		get_parent().get_node("Node/bigTitle").visible = false
+		get_parent().get_node("Node/smallTitle").visible = false
 		get_parent().get_node("Node/Play").visible = false
 		get_parent().get_node("Node/ColorRect").visible = false
 		get_parent().get_node("Node/ProgressBar").visible = true
@@ -95,12 +102,47 @@ func _physics_process(delta):
 			get_parent().get_node("Time_UI").visible = true
 			time = 0
 			get_parent().get_node("Node/BUZZER").playing = true
-	
+			
+	if DisplayServer.window_get_mode() == 3:
+		get_parent().get_node("Node/Play").size.x = 900
+		get_parent().get_node("Node/Play").size.y = 400
+		get_parent().get_node("Node/Help").size.x = 900
+		get_parent().get_node("Node/Help").size.y = 400
+		get_parent().get_node("Node/Fastest Times").size.x = 900
+		get_parent().get_node("Node/Fastest Times").size.y = 400
+		get_parent().get_node("Node/Play").position.y = 400
+		get_parent().get_node("Node/Help").position.y = 900
+		get_parent().get_node("Node/Fastest Times").position.y = 1400
+		get_parent().get_node("Node/Play").position.y = 400
+		get_parent().get_node("Node/Help").position.y = 1400
+		get_parent().get_node("Node/Fastest Times").position.y = 900
+		get_parent().get_node("Node/Menu Button").position.y = 900
+		get_parent().get_node("Node/Menu Button").position.x = get_parent().get_node("Node/Play").position.x
+		get_parent().get_node("Node/Menu Button").size.x = 900
+		get_parent().get_node("Node/Menu Button").size.y = 400
+
+	else:
+		get_parent().get_node("Node/Play").size.x = 200
+		get_parent().get_node("Node/Play").size.y = 100
+		get_parent().get_node("Node/Help").size.x = 200
+		get_parent().get_node("Node/Help").size.y = 100
+		get_parent().get_node("Node/Fastest Times").size.x = 200
+		get_parent().get_node("Node/Fastest Times").size.y = 100
+		get_parent().get_node("Node/Play").position.y = 172
+		get_parent().get_node("Node/Help").position.y = 482
+		get_parent().get_node("Node/Fastest Times").position.y = 333
+	if DisplayServer.window_get_mode() == 3 and get_parent().get_node("Node/smallTitle").visible == true:
+		get_parent().get_node("Node/bigTitle").visible = true
+		get_parent().get_node("Node/smallTitle").visible = false
+	elif DisplayServer.window_get_mode() == 0 and get_parent().get_node("Node/bigTitle").visible == true:
+		get_parent().get_node("Node/bigTitle").visible = false
+		get_parent().get_node("Node/smallTitle").visible = true
 func _on_help_pressed():
 	get_parent().get_node("Click").playing = true
 	get_parent().get_node("Node/ColorRect").visible = true
 	get_parent().get_node("Node/Play").visible = false
-	get_parent().get_node("Node/Title").visible = true
+	get_parent().get_node("Node/smallTitle").visible = true
+	get_parent().get_node("Node/bigTitle").visible = true
 	get_parent().get_node("Node/ProgressBar").visible = false
 	get_parent().get_node("Node/HelpText").visible = true
 	get_parent().get_node("Node/Menu Button").visible = true
@@ -113,7 +155,8 @@ func _on_menu_button_pressed():
 	get_parent().get_node("Click").playing = true
 	get_parent().get_node("Node/ColorRect").visible = true
 	get_parent().get_node("Node/Play").visible = true
-	get_parent().get_node("Node/Title").visible = true
+	get_parent().get_node("Node/smallTitle").visible = true
+	get_parent().get_node("Node/bigTitle").visible = true
 	get_parent().get_node("Node/ProgressBar").visible = false
 	get_parent().get_node("Node/Menu Button").visible = false
 	get_parent().get_node("Node/Fastest Times").visible = true
