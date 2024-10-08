@@ -8,15 +8,16 @@ var finalTime
 var seconds
 var fastest_times = []
 var continue_
-var startRotation = Vector3(-0.2, 110.7, 1.5)
-var startPosition = Vector3(-195.009, 82.451, 75.518)
-var computerStartRotation = Vector3(0.084, 0.633, -0.462)
-var computerStartPosition = Vector3(0.4, -11.9, 6)
+var startRotation = rotation
+var startPosition = position
+var computerStartRotation
+var computerStartPosition
 var count = 0
 var finished
 var left_start
 var finishLine = 0
 var checkpoint = 0
+var respawns = 0
 
 # Set all of the nodes to "null" so that the are defined
 var colorRect = null
@@ -69,6 +70,10 @@ func _ready() -> void:
 	userCar = get_parent().get_node("userCar")
 	speedBar = get_parent().get_node("userInterface/speedBar")
 	computerCar = get_parent().get_node("track/trackPath/pathFollow/computerCar")
+	
+	# Set the computer car's respawn point
+	computerStartPosition = computerCar.position
+	computerStartRotation = computerCar.rotation
 
 func _on_button_pressed():
 	# Adjust variables
@@ -78,6 +83,7 @@ func _on_button_pressed():
 	pathFollow.progress_ratio = 0
 	checkpoint = 0
 	finishLine = 0
+	respawns += 1
 	
 	# Hide the menu elements
 	speedBar.visible = true
@@ -89,8 +95,9 @@ func _on_button_pressed():
 	bigTitle.visible = false
 	fastestTimes.visible = false
 	
-	# Start the countdown
-	countDown()
+	if respawns == 1:
+		# Start the countdown
+		countDown()
 
 func _physics_process(delta):
 	# Check if the user is playing
@@ -115,10 +122,6 @@ func _physics_process(delta):
 		# Update the displayed time
 		smallTimeInterface.text = str(time)
 		bigTimeInterface.text = str(time)
-	
-	# Check if the car is stationary and continue the countdown
-	if linear_velocity.x == 0:
-		count += delta
 	
 	# Allow the user to drive backwards
 	if count > 5 and Input.get_action_strength("backward") > 0:
@@ -193,9 +196,16 @@ func _physics_process(delta):
 		
 	# Check if the user has chosen to respawn
 	if continue_ == true:
+		
+		# Freeze the car to prevent residual movement
+		freeze = true
+		
 		# Respawn the user's car in the correct position
-		position = startPosition
-		rotation = startRotation
+		rotation = Vector3(startRotation)
+		position = Vector3(startPosition)
+		
+		# Unfreeze the car to allow for user input
+		freeze = false
 		
 		# Respawn the computer car in the correct position
 		computerCar.position = computerStartPosition
@@ -218,6 +228,7 @@ func _physics_process(delta):
 	if countdown.visible == true:
 		
 		# Slow the countdown to match the sound and truncate the time
+		count += delta
 		countdown.text = str(5 - snapped(time*0.8, 1))
 		smallTimeInterface.visible = false
 		bigTimeInterface.visible = false
@@ -337,9 +348,15 @@ func _on_menu_button_pressed():
 	fastestTimes.visible = true
 	help.visible = true
 	helpText.visible = false
+	smallTitle.text = "Velocity Vortex"
+	bigTitle.text = "Velocity Vortex"
 
-# countDown variable
+# countDown function
 func countDown():
+	
+	# Reset the time
+	time = 0
+	
 	# Start the countdown
 	countdown.visible = true
 	counting.playing = true
