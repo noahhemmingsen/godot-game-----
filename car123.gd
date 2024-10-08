@@ -44,6 +44,8 @@ var userCar = null
 var speedBar = null
 var computerCar = null
 
+
+# Function is called when the game loads
 func _ready() -> void:
 	
 	# Give paths to all the nodes as soon as the game loads
@@ -74,6 +76,8 @@ func _ready() -> void:
 	# Set the computer car's respawn point
 	computerStartPosition = computerCar.position
 	computerStartRotation = computerCar.rotation
+	pathFollow.progress_ratio = 0
+
 
 func _on_button_pressed():
 	# Adjust variables
@@ -98,8 +102,11 @@ func _on_button_pressed():
 	if respawns == 1:
 		# Start the countdown
 		countDown()
-
+		
+		
+# Function is called continuously
 func _physics_process(delta):
+	
 	# Check if the user is playing
 	if countdown.visible != true:
 		speedBar.visible = true
@@ -122,6 +129,7 @@ func _physics_process(delta):
 		# Update the displayed time
 		smallTimeInterface.text = str(time)
 		bigTimeInterface.text = str(time)
+		
 	
 	# Allow the user to drive backwards
 	if count > 5 and Input.get_action_strength("backward") > 0:
@@ -130,6 +138,7 @@ func _physics_process(delta):
 	# Update the speed so that it can be displayed
 	speed = linear_velocity.length()
 	
+	
 	# Check if the car has not finished and continue updating the time if so
 	if finishLine <= 1:
 		time += delta
@@ -137,22 +146,27 @@ func _physics_process(delta):
 	# Truncate the time value so it can be displayed
 	time = snapped(time, 0.001)
 	
+	
 	# Check if the car is moving and play a sound if so
 	if linear_velocity.x != 0:
 		carSound.playing = true
+		
 	
 	# Truncate the speed value for display purposes
 	speed = snapped(speed, 0)
 	
+	
 	# Update the text of the speedometers to match the car's speed
 	bigSpeedometer.text = (str(speed * 3) + "km/h")
 	smallSpeedometer.text = (str(speed * 3) + "km/h")
+	
 	
 	# Check if the car had fallen off
 	if position.y > 10:
 		
 		# Play the death sound if the car has fallen off
 		deathSound.playing = true
+		
 	
 	# Check if the player has finished
 	if finishLine > 1 and checkpoint >= 1:
@@ -167,13 +181,25 @@ func _physics_process(delta):
 			smallTitle.text = "You Won!"
 			bigTitle.visible = true
 			smallTitle.visible = true
+			
+			# Wait for 2 seconds
+			await get_tree().create_timer(2.0).timeout
+			
+			# Show the main menu
+			_on_menu_button_pressed()
+			
+			smallTitle.text = "Velocity Vortex"
+			bigTitle.text = "Velocity Vortex"
+			
 		else:
+			
 			
 			# Inform the user that they have lost
 			bigTitle.text = "You Lost"
 			smallTitle.text = "You Lost"
 			bigTitle.visible = true
 			smallTitle.visible = true
+			
 	
 	# Check if the menu needs to be displayed
 	if position.y < 5 or Input.is_action_pressed("menu"):
@@ -188,11 +214,14 @@ func _physics_process(delta):
 		speedBar.visible = false
 		menuButton.visible = true
 		countdown.visible = false
+		
+		
 	else:
 		continue_ = false
 		
 		# Update the value of the visual speedometer
 		speedBar.value = speed
+		
 		
 	# Check if the user has chosen to respawn
 	if continue_ == true:

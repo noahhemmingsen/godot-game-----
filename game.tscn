@@ -149,7 +149,7 @@ material = SubResource("StandardMaterial3D_q61hp")
 
 [node name="userCar" parent="." instance=ExtResource("1_00fe7")]
 unique_name_in_owner = true
-transform = Transform3D(-0.387641, 0.00764401, 0.921777, 0.0267438, 0.999638, 0.0029565, -0.921422, 0.0257978, -0.387707, -193.716, 79.0146, 79.3352)
+transform = Transform3D(-0.387641, 0.00764401, 0.921777, 0.0267438, 0.999638, 0.0029565, -0.921422, 0.0257978, -0.387707, -193.954, 79.0146, 78.3057)
 gravity_scale = 2.0
 script = ExtResource("2_u18rw")
 
@@ -260,7 +260,7 @@ transform = Transform3D(15, 0, 0, 0, 3, 0, 0, 0, 15, -4.565, 70, -0.093)
 curve = SubResource("Curve3D_adq8t")
 
 [node name="pathFollow" type="PathFollow3D" parent="track/trackPath"]
-transform = Transform3D(-0.706964, 0.000531008, 0.707195, -5.82068e-11, 0.999967, -0.000750796, -0.707228, -0.00053081, -0.70693, -21.0565, -0.0169277, 0.361093)
+transform = Transform3D(-0.706962, 0.000531005, 0.707193, -5.82066e-11, 0.999962, -0.000750795, -0.707227, -0.000530807, -0.706929, -21.0565, -0.0169277, 0.361093)
 script = ExtResource("4_4stqb")
 
 [node name="computerCar" parent="track/trackPath/pathFollow" instance=ExtResource("4_fs2ad")]
